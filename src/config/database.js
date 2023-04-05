@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+require('dotenv').config()
 var dbState = [{
     value: 0,
     label: "disconnected"
@@ -16,10 +16,9 @@ var dbState = [{
     value: 3,
     label: "disconnecting"
 }];
-
 const connectionTest = async () => {
     mongoose.set("strictQuery", false)
-    await mongoose.connect('mongodb://127.0.0.1:27017', {
+    await mongoose.connect(`${process.env.DB_HOST}`, {
         maxPoolSize: 10,
         socketTimeoutMS: 6000,
         keepAlive: true,
